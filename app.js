@@ -39,7 +39,7 @@ bot.dialog('/', new builder.IntentDialog()
         session.send("Any more specific questions or to get a pre-approved BizSpark account.. Email Martin.Schray@microsoft.com !");
     })
     .matches(/^end/i, function (session) {
-        session.send("Hello! What would you like to know? BizSpark|SignUp|End Chat");
+        session.send("bye! have a great night!");
     })
     .onDefault(function (session) {
         session.send("I didn't understand. Say hello to me!");
