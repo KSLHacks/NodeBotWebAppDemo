@@ -43,11 +43,12 @@ bot.dialog('/', [
         builder.Prompts.choice(session, "Hello! What would you like to know?", "BizSpark Website|SignUp|End Chat");
     },
     function (session, results) {
-        if (results.response == "BizSpark Website") {
+        if (results.response == '1') {
             session.send(session, "You can find more information about BizSpark and Microsoft at bizspark.microsoft.com");
-        } else if (results.response == "SignUp") {
+        } else if (results.response == '2') {
              session.send(session, "Any more specific questions or to get a pre-approved BizSpark account.. Email Martin.Schray@microsoft.com !");
         } else {
+            session.send("Bye!");
             session.endDialog();
         }
     }
