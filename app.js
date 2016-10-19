@@ -48,7 +48,7 @@ bot.dialog('/', [
         } else if (results.response == '2') {
              session.send(session, "Any more specific questions or to get a pre-approved BizSpark account.. Email Martin.Schray@microsoft.com !");
         } else {
-            session.send("Bye!");
+            session.send("Bye %s", results.response);
             session.endDialog();
         }
     }
