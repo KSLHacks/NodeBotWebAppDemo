@@ -28,25 +28,48 @@ server.post('/api/messages', connector.listen());
 // Bots Dialogs
 //=========================================================
 
-bot.dialog('/',
+bot.dialog('/', [
+    function (session, args, next) {
+        if (!session.userData.name) {
+            session.beginDialog('/profile');
+        } else {
+            next();
+        }
+    },
+    function (session, results) {
+        session.send('Hello %s!', session.userData.name);
+    }
+]);
+
+bot.dialog('/profile', [
     function (session) {
-        session.send("Hello! The Node.js backend server is running on Azure Web Apps!")
-    });
+        builder.Prompts.text(session, 'Hi! What is your name?');
+    },
+    function (session, results) {
+        session.userData.name = results.response;
+        session.endDialog();
+    }
+]);
 
-bot.dialog('/help', [
-        function (session) {
-            session.send(session, "help, bizspark, signup");
-        }]
-);
+// bot.dialog('/', 
+//     function (session) {
+//         session.send("Hello! The Node.js backend server is running on Azure Web Apps!")
+//     });
 
-bot.dialog('/bizspark', [
-        function (session) {
-            session.send(session, "You can find more information about BizSpark and Microsoft at bizspark.microsoft.com");
-        }]
-);
+// bot.dialog('/help', [
+//         function (session) {
+//             session.send(session, "help, bizspark, signup");
+//         }]
+// );
 
-bot.dialog('/signup', [
-        function (session) {
-            session.send(session, "Any more specific questions or to get a pre-approved BizSpark account.. Email Martin.Schray@microsoft.com !");
-        }]
-);
+// bot.dialog('/bizspark', [
+//         function (session) {
+//             session.send(session, "You can find more information about BizSpark and Microsoft at bizspark.microsoft.com");
+//         }]
+// );
+
+// bot.dialog('/signup', [
+//         function (session) {
+//             session.send(session, "Any more specific questions or to get a pre-approved BizSpark account.. Email Martin.Schray@microsoft.com !");
+//         }]
+// );
