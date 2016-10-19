@@ -38,11 +38,8 @@ bot.dialog('/', [
     },
     function (session, results) {
         session.send('Hello %s! This Website AND the Node.js backend server are running on Azure Web Apps!', session.userData.name);
-        builder.Prompts.text(session, "Would you like more info?");
-    },
-    function (session, results) {
-        session.beginDialog('/bizspark');
-        session.endDialog();
+        session.send(session, "You can find more information about BizSpark and Microsoft at bizspark.microsoft.com");
+        session.send(session, "Any more specific questions or to get a pre-approved BizSpark account.. Email Martin.Schray@microsoft.com !");
     }
 ]);
 
@@ -55,11 +52,3 @@ bot.dialog('/profile', [
         session.endDialog();
     }
 ]);
-
-
-bot.dialog('/bizspark', [
-        function (session) {
-            session.send(session, "You can find more information about BizSpark and Microsoft at bizspark.microsoft.com");
-            session.send(session, "Any more specific questions or to get a pre-approved BizSpark account.. Email Martin.Schray@microsoft.com !");
-        }]
-);
