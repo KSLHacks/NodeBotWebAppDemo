@@ -40,12 +40,12 @@ bot.dialog('/', [
     //     session.send('Hello %s! This Website AND the Node.js backend server are running on Azure Web Apps!', session.userData.name);
     // },
     function (session) {
-        builder.Prompts.choice(session, "Hello! What would you like to know?", "BizSpark Website|SignUp|End Chat");
+        builder.Prompts.text(session, "Hello! What would you like to know?", "BizSpark Website|SignUp|End Chat");
     },
     function (session, results) {
-        if (results.response == '1') {
+        if (results.response == 'BizSpark Website') {
             session.send(session, "You can find more information about BizSpark and Microsoft at bizspark.microsoft.com");
-        } else if (results.response == '2') {
+        } else if (results.response == 'SignUp') {
              session.send(session, "Any more specific questions or to get a pre-approved BizSpark account.. Email Martin.Schray@microsoft.com !");
         } else {
             session.send("Bye %s", results.response);
