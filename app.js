@@ -38,8 +38,18 @@ bot.dialog('/', [
     },
     function (session, results) {
         session.send('Hello %s! This Website AND the Node.js backend server are running on Azure Web Apps!', session.userData.name);
-        session.beginDialog('/bizspark');
-        session.beginDialog('/signup');
+    },
+    function (session) {
+        builder.Prompts.choice(session, "What would you like??", "BizSpark Website|SignUp|End Chat");
+    },
+    function (session, results) {
+        if (results.response == "BizSpark Website") {
+            session.send(session, "You can find more information about BizSpark and Microsoft at bizspark.microsoft.com");
+        } else if (results.response == "SignUp") {
+             session.send(session, "Any more specific questions or to get a pre-approved BizSpark account.. Email Martin.Schray@microsoft.com !");
+        } else {
+            session.endDialog();
+        }
     }
 ]);
 
@@ -53,16 +63,16 @@ bot.dialog('/profile', [
     }
 ]);
 
-bot.dialog('/bizspark', [
-    function (session) {
-        session.send(session, "You can find more information about BizSpark and Microsoft at bizspark.microsoft.com");
-        session.endDialog();
-    }
-]);
+// bot.dialog('/bizspark', [
+//     function (session) {
+//         session.send(session, "You can find more information about BizSpark and Microsoft at bizspark.microsoft.com");
+//         session.endDialog();
+//     }
+// ]);
 
-bot.dialog('/signup', [
-    function (session) {
-        session.send(session, "Any more specific questions or to get a pre-approved BizSpark account.. Email Martin.Schray@microsoft.com !");
-        session.endDialog();
-    }
-]);
+// bot.dialog('/signup', [
+//     function (session) {
+//         session.send(session, "Any more specific questions or to get a pre-approved BizSpark account.. Email Martin.Schray@microsoft.com !");
+//         session.endDialog();
+//     }
+// ]);
