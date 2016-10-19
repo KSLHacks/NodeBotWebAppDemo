@@ -28,7 +28,24 @@ server.post('/api/messages', connector.listen());
 // Bots Dialogs
 //=========================================================
 
-bot.dialog('/', [
+bot.dialog('/', new builder.IntentDialog()
+    .matches(/^hello/i, function (session) {
+        session.send("Hello! What would you like to know? BizSpark|SignUp|End Chat");
+    })
+    .matches(/^bizspark/i, function (session) {
+        session.send("You can find more information about BizSpark and Microsoft at bizspark.microsoft.com");
+    })
+    .matches(/^signup/i, function (session) {
+        session.send("Any more specific questions or to get a pre-approved BizSpark account.. Email Martin.Schray@microsoft.com !");
+    })
+    .matches(/^end/i, function (session) {
+        session.send("Hello! What would you like to know? BizSpark|SignUp|End Chat");
+    })
+    .onDefault(function (session) {
+        session.send("I didn't understand. Say hello to me!");
+    }));
+
+// bot.dialog('/', [
     // function (session, args, next) {
     //     if (!session.userData.name) {
     //         session.beginDialog('/profile');
@@ -39,30 +56,32 @@ bot.dialog('/', [
     // function (session, results) {
     //     session.send('Hello %s! This Website AND the Node.js backend server are running on Azure Web Apps!', session.userData.name);
     // },
-    function (session) {
-        builder.Prompts.choice(session, "Hello! What would you like to know?", "BizSpark|SignUp|End Chat");
-    },
-    function (session, results) {
-        if (results.response == 1) {
-            session.send(session, "You can find more information about BizSpark and Microsoft at bizspark.microsoft.com");
-        } else if (results.response == 2) {
-             session.send(session, "Any more specific questions or to get a pre-approved BizSpark account.. Email Martin.Schray@microsoft.com !");
-        } else {
-            session.send("Bye %d", results.response);
-            session.endDialog();
-        }
-    }
-]);
+//     function (session) {
+//         builder.Prompts.choice(session, "Hello! What would you like to know?", "BizSpark|SignUp|End Chat");
+//     },
+//     function (session, results) {
+//         if (results.response == 1) {
+//             session.send(session, "You can find more information about BizSpark and Microsoft at bizspark.microsoft.com");
+//             session.endDialog();
+//         } else if (results.response == 2) {
+//              session.send(session, "Any more specific questions or to get a pre-approved BizSpark account.. Email Martin.Schray@microsoft.com !");
+//              session.endDialog();
+//         } else {
+//             session.send("Bye %d", results.response);
+//             session.endDialog();
+//         }
+//     }
+// ]);
 
-bot.dialog('/profile', [
-    function (session) {
-        builder.Prompts.text(session, 'Hi! What is your name?');
-    },
-    function (session, results) {
-        session.userData.name = results.response;
-        session.endDialog();
-    }
-]);
+// bot.dialog('/profile', [
+//     function (session) {
+//         builder.Prompts.text(session, 'Hi! What is your name?');
+//     },
+//     function (session, results) {
+//         session.userData.name = results.response;
+//         session.endDialog();
+//     }
+// ]);
 
 // bot.dialog('/bizspark', [
 //     function (session) {
