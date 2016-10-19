@@ -53,7 +53,7 @@ bot.dialog('/profile', [
     }
 ]);
 
-bot.dialog('/profile', [
+bot.dialog('/bizspark', [
     function (session) {
         session.send(session, "You can find more information about BizSpark and Microsoft at bizspark.microsoft.com");
         session.endDialog();
